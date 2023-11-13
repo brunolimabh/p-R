@@ -1,5 +1,5 @@
 #Importando o csv
-heart <- read.csv("C:/Users/bruno/Documents/projetosR/heart.data.csv")
+heart <- read.csv("C:/Users/bruno/Documents/projetosR/datasets/heart.data.csv")
 summary(heart)
 
 # a) Independência das observações
@@ -52,3 +52,21 @@ heart.plot <-
 
 #Adicionando modelo de regrassão ao gráfico
 heart.plot + annotate(geom="text", x=30, y=1.75, label=" = 15 + (-0.2*biking) + (0.178*smoking)")
+
+# FAZENDO ANALISES SEPARADAS
+indices <- 1:(200)
+subset.heart <- heart[indices, ]
+
+heart.plot2 <- ggplot(subset.heart, aes(x=biking, y=heart.disease)) +
+  geom_point()
+
+heart.plot2 <- heart.plot2 +
+  geom_line(data=plotting.data, aes(x=biking, y=predicted.y, color=smoking), size=1.25)
+
+heart.plot2 <- 
+  heart.plot2 +
+  theme_bw() +
+  labs(title = "Rates of heart disease (% of population) \n as function of biking to word and smoking",
+       x = "Biking to work (% of population)",
+       y = "Heart disease (% of population)",
+       color = "Smoking \n (% of population)")

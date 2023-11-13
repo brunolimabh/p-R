@@ -17,7 +17,7 @@ library(tidyverse)
 
 
 #Importanto o csv "income.data"
-income.data <- read.csv("C:/Users/bruno/Documents/projetosR/income.data.csv")
+income.data <- read.csv("C:/Users/bruno/Documents/projetosR/datasets/income.data.csv")
 #Removendo os ID da tabela
 income.data$X <- NULL
 
@@ -61,3 +61,14 @@ income.graph +
   labs(title = "Reported happiness as a function of income",
     x = "Icome (x$10,000)",
     y = "Happiness score (0 to 10)")
+
+
+# FAZENDO SUBSET PARA ANALISES
+indices <- 1:(100)
+subset.income <- income.data[indices, ]
+
+income.graph2 <- ggplot(subset.income, aes(x=income, y=happiness)) + geom_point()
+income.graph2 <- income.graph2 + geom_smooth(method = "lm", col="black")
+income.graph2 <- income.graph2 + 
+  stat_regline_equation(label.x = 3, label.y = 7)
+
